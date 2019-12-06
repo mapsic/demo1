@@ -66,7 +66,9 @@ pipeline {
         stage('Deploy to Test') {
 
             when {
-                "${env.BRANCHE_NAME}" 'develop'
+                expression {
+                    return env.BRANCH_NAME == 'develop';
+                }
             }
 
             steps {
@@ -80,7 +82,9 @@ pipeline {
         stage('Deploy to Prod') {
 
             when {
-                "${env.BRANCH_NAME}" 'master'
+                expression {
+                    return env.BRANCH_NAME == 'master';
+                }
             }
 
             steps {
