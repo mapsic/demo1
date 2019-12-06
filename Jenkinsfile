@@ -65,7 +65,7 @@ pipeline {
         //执行发布脚本。                     
         stage('Deploy') {
             steps {
-                sh "kubectl set image deploy demo1 demo1=registry-vpc.cn-hongkong.aliyuncs.com/bitsoda2019/demo1:${env.BRANCH_NAME}-${BUILD_NUMBER}"
+                sh "kubectl set image deploy demo1 demo1=registry-vpc.cn-hongkong.aliyuncs.com/bitsoda2019/demo1:${env.BRANCH_NAME}-${BUILD_NUMBER} -n ops"
                 
             }
         }

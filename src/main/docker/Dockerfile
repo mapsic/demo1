@@ -7,4 +7,4 @@ VOLUME /tmp
 
 EXPOSE 8125 
 
-COPY target/demo1.jar  /demo1.jar
+COPY demo1.jar  /demo1.jar
