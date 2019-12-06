@@ -50,7 +50,7 @@ pipeline {
                     dir ('src/main/docker') {
 
                     /* 构建镜像 */
-                    def customImage = docker.build("mapsic/demo-${env.BRANCH_NAME}:${BUILD_NUMBER}")
+                    def customImage = docker.build("bitsoda2019/demo1:${env.BRANCH_NAME}-${BUILD_NUMBER}")
 
                     /* hub.xxxx.cn是你的Docker Registry */
                     docker.withRegistry('https://registry.cn-hongkong.aliyuncs.com', 'my-docker-registry') {
@@ -65,7 +65,7 @@ pipeline {
         //执行发布脚本。                     
         stage('Deploy') {
             steps {
-                sh "echo ${env.BRANCH_NAME}"
+                sh "kubectl set image deploy demo1 demo1=registry-vpc.cn-hongkong.aliyuncs.com/bitsoda2019/demo1:${env.BRANCH_NAME}-${BUILD_NUMBER}"
                 
             }
         }
