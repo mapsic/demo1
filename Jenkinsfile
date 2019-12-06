@@ -62,11 +62,29 @@ pipeline {
             }
         }
 
-        //执行发布脚本。                     
-        stage('Deploy') {
+        //部署到test环境                 
+        stage('Deploy to Test') {
+
+            when {
+                "${env.BRANCHE_NAME}" 'develop'
+            }
+
             steps {
-                sh "kubectl set image deploy demo1 demo1=registry-vpc.cn-hongkong.aliyuncs.com/bitsoda2019/demo1:${env.BRANCH_NAME}-${BUILD_NUMBER} -n ops"
+                echo 'Deploy to Test'
                 
+                
+            }
+        }
+
+        //部署到prod环境
+        stage('Deploy to Prod') {
+
+            when {
+                "${env.BRANCH_NAME}" 'master'
+            }
+
+            steps {
+               sh "kubectl set image deploy demo1 demo1=registry-vpc.cn-hongkong.aliyuncs.com/bitsoda2019/demo1:${env.BRANCH_NAME}-${BUILD_NUMBER} -n ops"
             }
         }
     }
